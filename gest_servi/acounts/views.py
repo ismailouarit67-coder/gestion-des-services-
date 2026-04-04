@@ -16,3 +16,9 @@ class RegisterView(generics.CreateAPIView):
                 "message": "Utilisateur créé avec succès",
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+from .permissions import IsPrestataire
+from rest_framework.permissions import IsAuthenticated
+
+class CreateServiceView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated, IsPrestataire] # 1. Doit être connecté + 2. Doit être prestataire
+    # ... le reste du code
